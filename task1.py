@@ -60,7 +60,11 @@ class WordPieceTokenizer:
         # Now apply the WordPiece algorithm to build the vocabulary up to the desired size
         while len(self.vocab) < self.vocab_size:
             pair_scores = self.compute_pair_scores()
+            if not pair_scores:
+                break
             best_pair, max_score = self.get_best_pair(pair_scores)
+            if best_pair is None:
+                break
             self.merge_pair(best_pair)
             new_token = self.create_new_token(best_pair)
             self.vocab.append(new_token)
@@ -169,43 +173,44 @@ class WordPieceTokenizer:
         return tokens
 
 
-# # Example usage:
-# corpus = [
-#     "This is the Hugging Face Course.",
-#     "This chapter is about tokenization.",
-#     "This section shows several tokenizer algorithms.",
-#     "Hopefully, you will be able to understand how they are trained and generate tokens."
-# ]
-with open("corpus.txt", "r") as file:
-    corpus = file.readlines()
+if __name__ == "__main__":
+    # # Example usage:
+    # corpus = [
+    #     "This is the Hugging Face Course.",
+    #     "This chapter is about tokenization.",
+    #     "This section shows several tokenizer algorithms.",
+    #     "Hopefully, you will be able to understand how they are trained and generate tokens."
+    # ]
+    with open("corpus.txt", "r") as file:
+        corpus = file.readlines()
 
-# Instantiate WordPieceTokenizer
-tokenizer = WordPieceTokenizer(corpus, vocab_size=1000)
+    # Instantiate WordPieceTokenizer
+    tokenizer = WordPieceTokenizer(corpus, vocab_size=1000)
 
-# Construct vocabulary
-tokenizer.construct_vocabulary()
+    # Construct vocabulary
+    tokenizer.construct_vocabulary()
 
-# # Test tokenization
-# sentence = "This is the Hugging Face course!"
-# tokens = tokenizer.tokenize(sentence)
-# print(tokens)
+    # # Test tokenization
+    # sentence = "This is the Hugging Face course!"
+    # tokens = tokenizer.tokenize(sentence)
+    # print(tokens)
 
-# # Save tokenized output to a JSON file
-# tokenized_output = {"1": tokens}
-# with open("tokenized_output.json", "w") as json_file:
-#     json.dump(tokenized_output, json_file, indent=4)
+    # # Save tokenized output to a JSON file
+    # tokenized_output = {"1": tokens}
+    # with open("tokenized_output.json", "w") as json_file:
+    #     json.dump(tokenized_output, json_file, indent=4)
 
-with open("sample_test.json", "r") as test_file:
-    test_samples = json.load(test_file)
+    with open("sample_test.json", "r") as test_file:
+        test_samples = json.load(test_file)
 
-# Tokenize sentences and save results
-tokenized_results = []
-for sample in test_samples:
-    tokenized_sentence = tokenizer.tokenize(sample["sentence"])
-    tokenized_results.append({"id": sample["id"], "tokens": tokenized_sentence})
+    # Tokenize sentences and save results
+    tokenized_results = []
+    for sample in test_samples:
+        tokenized_sentence = tokenizer.tokenize(sample["sentence"])
+        tokenized_results.append({"id": sample["id"], "tokens": tokenized_sentence})
 
-# Save tokenized output to JSON
-with open("sample_tokenized.json", "w") as output_file:
-    json.dump(tokenized_results, output_file, indent=4)
+    # Save tokenized output to JSON
+    with open("sample_tokenized.json", "w") as output_file:
+        json.dump(tokenized_results, output_file, indent=4)
 
-print("Tokenization completed and saved to sample_tokenized.json!")
+    print("Tokenization completed and saved to sample_tokenized.json!")
