@@ -1,10 +1,9 @@
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import Dataset, random_split, DataLoader
 from task1 import WordPieceTokenizer
 import torch.nn as nn
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
-import torch.utils.data as DataLoader
 import matplotlib.pyplot as plt
 import torch.optim as optim
 
@@ -68,8 +67,6 @@ class Word2VecDataset(Dataset):
 
         return (torch.tensor(context_idx, dtype=torch.long),  
                 torch.tensor(target_idx, dtype=torch.long))
-
-
         
 class Word2VecModel(nn.Module):
     def __init__(self, vocab_size, embedding_dim):
@@ -81,39 +78,63 @@ class Word2VecModel(nn.Module):
         embed = self.embeddings(context)  # (batch_size, context_size, embedding_dim)
         embed = embed.mean(dim=1)  # Average over context words
         output = self.linear(embed)  # Predict word
-        return output
+        return output        
+        
+def train(dataset, embedding_dim=100, epochs=100, batch_size=32, lr=0.001, val_split=0.2):
+    train_size = int((1 - val_split) * len(dataset))
+    val_size = len(dataset) - train_size
+    train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
 
-        
-        
-def train(dataset, embedding_dim=100, epochs=10, batch_size=32, lr=0.001):
-    data_loader = DataLoader.DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+
     model = Word2VecModel(dataset.vocab_size, embedding_dim)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
-    losses = []
+    train_losses = []
+    val_losses = []
+
     for epoch in range(epochs):
-        total_loss = 0
-        for context, target in data_loader:
+        total_train_loss = 0
+        total_val_loss = 0
+
+        model.train()
+        for context, target in train_loader:
             optimizer.zero_grad()
             output = model(context)
             loss = criterion(output, target.long())
             loss.backward()
             optimizer.step()
-            total_loss += loss.item()
-        losses.append(total_loss / len(data_loader))
-        print(f"Epoch {epoch+1}, Loss: {total_loss:.4f}")
-    
-    torch.save(model.state_dict(), "word2vec_cbow.pth")
-    return model, losses
+            total_train_loss += loss.item()
+        train_loss = total_train_loss / len(train_loader)
+        train_losses.append(train_loss)
 
-# Plot Training Loss
-def plot_loss(losses):
-    plt.plot(range(len(losses)), losses)
+        model.eval()
+        with torch.no_grad():
+            for context, target in val_loader:
+                output = model(context)
+                loss = criterion(output, target.long())
+                total_val_loss += loss.item()
+        val_loss = total_val_loss / len(val_loader)
+        val_losses.append(val_loss)
+
+        print(f"Epoch {epoch+1}, Train Loss: {train_loss :.4f}, Val Loss: {val_loss:.4f}")
+
+    torch.save(model.state_dict(), "word2vec_cbow.pth")
+    return model, train_losses, val_losses
+
+
+def plot_loss(train_losses, val_losses):
+    plt.plot(range(len(train_losses)), train_losses, label="Training Loss")
+    plt.plot(range(len(val_losses)), val_losses, label="Validation Loss")
     plt.xlabel("Epochs")
     plt.ylabel("Loss")
-    plt.title("Training Loss vs Epochs")
+    plt.title("Loss vs Epochs")
+    plt.legend()
+    plt.savefig("loss.png")
     plt.show()
+
 
 # Compute cosine similarity and find triplets
 def find_similar_words(model, dataset):
@@ -141,7 +162,7 @@ with open("corpus.txt", "r") as file:
 tokenizer = WordPieceTokenizer(corpus, vocab_size=1000)
 tokenizer.construct_vocabulary()
 dataset = Word2VecDataset(corpus, tokenizer=tokenizer, context_window=2)
-# print(dataset.word_to_idx)
-model, losses = train(dataset)
-plot_loss(losses)
+# print(dataset.data)
+model, train_loss, val_loss = train(dataset)
+plot_loss(train_loss, val_loss)
 find_similar_words(model, dataset)
