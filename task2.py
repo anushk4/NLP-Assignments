@@ -3,13 +3,17 @@ from torch.utils.data import Dataset, random_split, DataLoader
 from task1 import WordPieceTokenizer
 import torch.nn as nn
 import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
 import torch.optim as optim
+import json
+from tqdm import tqdm
 
 # Reference: https://towardsdatascience.com/a-word2vec-implementation-using-numpy-and-python-d256cf0e5f28
 # https://www.kdnuggets.com/2018/04/implementing-deep-learning-methods-feature-engineering-text-data-cbow.html
 # https://jaketae.github.io/study/word2vec/
+# https://medium.com/@vishwasbhanawat/the-architecture-of-word2vec-78659ceb6638
+# https://www.geeksforgeeks.org/negaitve-sampling-using-word2vec/
+# https://github.com/piskvorky/gensim/blob/develop/gensim/models/word2vec.py
 
 class Word2VecDataset(Dataset):
     def __init__(self, corpus, tokenizer, context_window = 2):
@@ -68,19 +72,45 @@ class Word2VecDataset(Dataset):
         return (torch.tensor(context_idx, dtype=torch.long),  
                 torch.tensor(target_idx, dtype=torch.long))
         
+# class Word2VecModel(nn.Module):
+#     def __init__(self, vocab_size, embedding_dim):
+#         super(Word2VecModel, self).__init__()
+#         self.embeddings = nn.Embedding(vocab_size, embedding_dim)
+#         self.linear = nn.Linear(embedding_dim, vocab_size, bias=False)
+    
+#     def forward(self, context):
+#         embed = self.embeddings(context)  # (batch_size, context_size, embedding_dim)
+#         embed = embed.mean(dim=1)  # Average over context words
+#         output = self.linear(embed)  # Predict word
+#         return output  
+    
 class Word2VecModel(nn.Module):
     def __init__(self, vocab_size, embedding_dim):
         super(Word2VecModel, self).__init__()
+        self.vocab_size = vocab_size
         self.embeddings = nn.Embedding(vocab_size, embedding_dim)
-        self.linear = nn.Linear(embedding_dim, vocab_size)
+        self.context_embeddings = nn.Embedding(vocab_size, embedding_dim)
+        self.log_sigmoid = nn.LogSigmoid()
+
+    def forward(self, context, target, negative_samples):
+        target_embedding = self.embeddings(target)
+        context_embedding = self.context_embeddings(context)
+        context_embedding = context_embedding.mean(dim=1)
+        negative_embeddings = self.context_embeddings(negative_samples)
+        positive_score = self.log_sigmoid(torch.sum(context_embedding * target_embedding, dim=1))
+        negative_score = self.log_sigmoid(-torch.bmm(negative_embeddings, context_embedding.unsqueeze(2)).squeeze(2)).sum(1)
+        loss = - (positive_score + negative_score).mean()
+        return loss
     
-    def forward(self, context):
-        embed = self.embeddings(context)  # (batch_size, context_size, embedding_dim)
-        embed = embed.mean(dim=1)  # Average over context words
-        output = self.linear(embed)  # Predict word
-        return output        
-        
-def train(dataset, embedding_dim=100, epochs=100, batch_size=32, lr=0.001, val_split=0.2):
+def get_negative_samples(target, num_negative_samples, vocab_size):
+    neg_samples = []
+    while len(neg_samples) < num_negative_samples:
+        neg_sample = np.random.randint(0, vocab_size)
+        if neg_sample != target:
+            neg_samples.append(neg_sample)
+    return neg_samples    
+    
+def train(dataset, embedding_dim=100, epochs=25, batch_size=32, lr=0.001, val_split=0.2, num_negative_samples = 5):
     train_size = int((1 - val_split) * len(dataset))
     val_size = len(dataset) - train_size
     train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
@@ -89,7 +119,6 @@ def train(dataset, embedding_dim=100, epochs=100, batch_size=32, lr=0.001, val_s
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
     model = Word2VecModel(dataset.vocab_size, embedding_dim)
-    criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=lr)
 
     train_losses = []
@@ -100,26 +129,36 @@ def train(dataset, embedding_dim=100, epochs=100, batch_size=32, lr=0.001, val_s
         total_val_loss = 0
 
         model.train()
-        for context, target in train_loader:
+        train_progress = tqdm(train_loader, desc=f"Epoch {epoch+1}/{epochs} [Train]", leave=False)
+        for context, target in train_progress:
+            negative_samples = torch.LongTensor([get_negative_samples(t.item(), num_negative_samples, dataset.vocab_size) for t in target])
             optimizer.zero_grad()
-            output = model(context)
-            loss = criterion(output, target.long())
+            # output = model(context)
+            # loss = criterion(output, target.long())
+            loss = model(context, target, negative_samples)
             loss.backward()
             optimizer.step()
             total_train_loss += loss.item()
+            train_progress.set_postfix(loss=loss.item())
+
         train_loss = total_train_loss / len(train_loader)
         train_losses.append(train_loss)
 
         model.eval()
+        val_progress = tqdm(val_loader, desc=f"Epoch {epoch+1}/{epochs} [Val]", leave=False)
         with torch.no_grad():
-            for context, target in val_loader:
-                output = model(context)
-                loss = criterion(output, target.long())
+            for context, target in val_progress:
+                negative_samples = torch.LongTensor([get_negative_samples(t.item(), num_negative_samples, dataset.vocab_size) for t in target])
+                # output = model(context)
+                # loss = criterion(output, target.long())
+                loss = model(context, target, negative_samples)
                 total_val_loss += loss.item()
+                val_progress.set_postfix(loss=loss.item())
+
         val_loss = total_val_loss / len(val_loader)
         val_losses.append(val_loss)
 
-        print(f"Epoch {epoch+1}, Train Loss: {train_loss :.4f}, Val Loss: {val_loss:.4f}")
+        print(f"Epoch {epoch+1}, Train Loss: {train_loss:.4f}, Val Loss: {val_loss:.4f}")
 
     torch.save(model.state_dict(), "word2vec_cbow.pth")
     return model, train_losses, val_losses
@@ -135,34 +174,71 @@ def plot_loss(train_losses, val_losses):
     plt.savefig("loss.png")
     plt.show()
 
+def cosine_similarity(vec1, vec2):
+    dot_product = np.dot(vec1, vec2)
+    norm1 = np.linalg.norm(vec1)
+    norm2 = np.linalg.norm(vec2)
+    return dot_product / (norm1 * norm2)
 
-# Compute cosine similarity and find triplets
-def find_similar_words(model, dataset):
+def get_triplet_combinations(model, dataset, words):
     embeddings = model.embeddings.weight.detach().numpy()
-    word_pairs = [
-        ("unfit", "buff", "yoga"),  # Replace with actual words
-        ("enjoying", "laugh", "scoffing")
-    ]
-    for w1, w2, w3 in word_pairs:
+    combinations = []
+    for i in range(len(words)):
+        for j in range(len(words)):
+            for k in range(len(words)):
+                if i != j and i != k and j != k:
+                    combinations.append((words[i], words[j], words[k]))
+    similarities = []
+    for w1, w2, w3 in combinations:
         vec1 = embeddings[dataset.word_to_idx[w1]]
         vec2 = embeddings[dataset.word_to_idx[w2]]
         vec3 = embeddings[dataset.word_to_idx[w3]]
-        sim1 = cosine_similarity([vec1], [vec2])[0, 0]
-        sim2 = cosine_similarity([vec1], [vec3])[0, 0]
-        print(f"Similarity({w1}, {w2}): {sim1:.4f}, Similarity({w1}, {w3}): {sim2:.4f}")
+        sim1 = cosine_similarity(vec1, vec2)
+        sim2 = cosine_similarity(vec1, vec3)
+        sim3 = cosine_similarity(vec2, vec3)
+        similarities.extend([[sim1, w1, w2], [sim2, w1, w3], [sim3, w2, w3]])
+    similarities.sort(reverse=True)
+    return similarities[0] + similarities[-1]
 
-with open("corpus.txt", "r") as file:
-    corpus = file.readlines()
+# Compute cosine similarity and find triplets
+def find_similar_words(model, dataset):
+    word_pairs = [
+        ("unfit", "buff", "yoga"),
+        ("enjoying", "laugh", "scoffing")
+    ]
+    for word_pair in word_pairs:
+        top_similarities = get_triplet_combinations(model, dataset, word_pair)
+        print("Top similarity: {:.4f} between {} and {}".format(top_similarities[0], top_similarities[1], top_similarities[2]))
+        print("Lowest similarity: {:.4f} between {} and {}".format(top_similarities[3], top_similarities[4], top_similarities[5]))
+        print()
 
-# corpus = [
-#     "This is the Hugging Face Course.",
-#     "This chapter is about tokenization."
-#     ]
+# def load_model(model, filepath):
+#     model.load_state_dict(torch.load(filepath))
+#     model.eval()  # Set the model to evaluation mode
+#     return model
 
-tokenizer = WordPieceTokenizer(corpus, vocab_size=1000)
-tokenizer.construct_vocabulary()
-dataset = Word2VecDataset(corpus, tokenizer=tokenizer, context_window=2)
-# print(dataset.data)
-model, train_loss, val_loss = train(dataset)
-plot_loss(train_loss, val_loss)
-find_similar_words(model, dataset)
+if __name__ == "__main__":
+
+    with open("corpus.txt", "r") as file:
+        corpus = file.readlines()
+        
+    # corpus = [
+    # "This is the Hugging Face Course.",
+    # "This chapter is about tokenization."
+    # ]
+
+    tokenizer = WordPieceTokenizer(corpus, vocab_size=10000)
+    tokenizer.construct_vocabulary()
+    dataset = Word2VecDataset(corpus, tokenizer=tokenizer, context_window=2)
+    # print(dataset.data)    
+    with open("word_to_idx.json", "w", encoding="utf-8") as f:
+        json.dump(dataset.word_to_idx, f, ensure_ascii=False, indent=2)
+
+    # For idx_to_word, convert int keys to strings
+    idx_to_word_str = {str(k): v for k, v in dataset.idx_to_word.items()}
+    with open("idx_to_word.json", "w", encoding="utf-8") as f:
+        json.dump(idx_to_word_str, f, ensure_ascii=False, indent=2)
+    model, train_loss, val_loss = train(dataset)
+    plot_loss(train_loss, val_loss)
+    model = Word2VecModel(dataset.vocab_size, 100)
+    find_similar_words(model, dataset)
