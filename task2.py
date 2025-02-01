@@ -208,6 +208,7 @@ def find_similar_words(model, dataset):
     ]
     for word_pair in word_pairs:
         top_similarities = get_triplet_combinations(model, dataset, word_pair)
+        print("Word triplets: ", word_pair)
         print("Top similarity: {:.4f} between {} and {}".format(top_similarities[0], top_similarities[1], top_similarities[2]))
         print("Lowest similarity: {:.4f} between {} and {}".format(top_similarities[3], top_similarities[4], top_similarities[5]))
         print()
