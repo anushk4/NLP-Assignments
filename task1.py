@@ -2,6 +2,10 @@ import re
 from collections import defaultdict
 import json
 
+''' 
+Reference :  https://huggingface.co/learn/nlp-course/en/chapter6/6
+'''
+
 class WordPieceTokenizer:
     def __init__(self, corpus, vocab_size):
         self.corpus = corpus
@@ -11,35 +15,25 @@ class WordPieceTokenizer:
         self.word_freqs = defaultdict(int)
     
     def preprocess_data(self):
-        """ Preprocess the data by removing unwanted characters and tokenizing words """
-        # Remove special characters, punctuations, etc.
+        """ Preprocessing the data """
         cleaned_corpus = []
         for text in self.corpus:
-            # text = text.lower()  # Lowercasing the text
-            # text = re.sub(r'[^a-zA-Z0-9\s]', '', text)
-            #   # Removing non-alphanumeric characters
             text = re.sub(r'([^\w\s])', r' \1 ', text)
             cleaned_corpus.append(text)
         
         return cleaned_corpus
 
     def construct_vocabulary(self):
-        """ Construct vocabulary based on the WordPiece algorithm """
-        # First, pre-tokenize the text into words
+        """ Constructing vocabulary based on the WordPiece algorithm """
+    
         cleaned_corpus = self.preprocess_data()
-        print(cleaned_corpus)
 
-        # Create word frequencies
         for text in cleaned_corpus:
-            words = text.split()  # Split into words based on spaces
+            words = text.split()  # Spliting into words based on spaces
             for word in words:
                 self.word_freqs[word] += 1
-        
-       
-        print(self.word_freqs)
-        # print(self.splits)
 
-        # Construct the vocabulary from the initial characters and special tokens
+        # Constructing the vocabulary from the initial characters and special tokens
         alphabet = []
         for word in self.word_freqs.keys():
             if word[0] not in alphabet:
@@ -48,16 +42,15 @@ class WordPieceTokenizer:
                 if f"##{letter}" not in alphabet:
                     alphabet.append(f"##{letter}")
         # alphabet.sort()
-        print(alphabet)
         self.vocab = ["[PAD]", "[UNK]"] + alphabet.copy()
 
-         # Initialize splits dictionary where each word is split into characters prefixed with "##" except the first
+         # Initializing splits dictionary where each word is split into characters prefixed with "##" except the first
         self.splits = {
             word: [c if i == 0 else f"##{c}" for i, c in enumerate(word)]
             for word in self.word_freqs.keys()
         }
 
-        # Now apply the WordPiece algorithm to build the vocabulary up to the desired size
+        # WordPiece algorithm to build the vocabulary 
         while len(self.vocab) < self.vocab_size:
             pair_scores = self.compute_pair_scores()
             if not pair_scores:
@@ -69,8 +62,8 @@ class WordPieceTokenizer:
             new_token = self.create_new_token(best_pair)
             self.vocab.append(new_token)
 
-        # Save the final vocabulary to a file
-        with open(f"vocabulary_11{self.vocab_size}.txt", "w") as vocab_file:
+        # Saving the final vocabulary to a file
+        with open(f"vocabulary_50.txt", "w") as vocab_file:
             for token in self.vocab:
                 vocab_file.write(token + "\n")
 
@@ -91,7 +84,7 @@ class WordPieceTokenizer:
                 pair_freqs[pair] += freq
             letter_freqs[split[-1]] += freq
 
-        # Compute pair scores
+        # pair scores
         pair_scores = {
             pair: freq / (letter_freqs[pair[0]] * letter_freqs[pair[1]])
             for pair, freq in pair_freqs.items()
@@ -110,7 +103,7 @@ class WordPieceTokenizer:
         return best_pair, max_score
 
     def merge_pair(self, pair):
-        """ Merge the best pair in the splits dictionary """
+        """ Merging the best pair in the splits dictionary """
         a, b = pair
         for word in self.word_freqs:
             split = self.splits[word]
@@ -126,30 +119,19 @@ class WordPieceTokenizer:
             self.splits[word] = split
 
     def create_new_token(self, pair):
-        """ Create a new token by merging the pair """
+        """ Creating a new token by merging the pair """
         a, b = pair
         return a + b[2:] if b.startswith("##") else a + b
 
-    # def tokenize(self, sentence):
-    #     """ Tokenize a sentence using the WordPiece algorithm """
-    #     words = sentence.split()
-    #     tokenized_sentence = []
 
-    #     for word in words:
-    #         tokens = self.encode_word(word)
-    #         tokenized_sentence.extend(tokens)
-        
-    #     return tokenized_sentence
     def tokenize(self, sentence):
         """ Tokenize a sentence using the WordPiece algorithm """
-        # Step 1: Preprocess the sentence to separate punctuation
-        sentence = re.sub(r'([^\w\s])', r' \1 ', sentence)  # Add spaces around punctuation
-        sentence = re.sub(r'\s+', ' ', sentence)  # Remove extra spaces
+        # Preprocessing the sentence to separate punctuation
+        sentence = re.sub(r'([^\w\s])', r' \1 ', sentence)  # Adding spaces around punctuation
+        sentence = re.sub(r'\s+', ' ', sentence)  # Removing extra spaces
 
-        # Step 2: Split the sentence into words
         words = sentence.split()
 
-        # Step 3: Tokenize each word
         tokenized_sentence = []
         for word in words:
             tokens = self.encode_word(word)
@@ -158,7 +140,7 @@ class WordPieceTokenizer:
         return tokenized_sentence
 
     def encode_word(self, word):
-        """ Encode a word into tokens using the WordPiece vocabulary """
+        """ Encoding a word into tokens using the WordPiece vocabulary """
         tokens = []
         while len(word) > 0:
             i = len(word)
@@ -174,43 +156,27 @@ class WordPieceTokenizer:
 
 
 if __name__ == "__main__":
-    # # Example usage:
-    # corpus = [
-    #     "This is the Hugging Face Course.",
-    #     "This chapter is about tokenization.",
-    #     "This section shows several tokenizer algorithms.",
-    #     "Hopefully, you will be able to understand how they are trained and generate tokens."
-    # ]
+
     with open("corpus.txt", "r") as file:
         corpus = file.readlines()
 
-    # Instantiate WordPieceTokenizer
-    tokenizer = WordPieceTokenizer(corpus, vocab_size=1000)
+    # Instantiating WordPieceTokenizer
+    tokenizer = WordPieceTokenizer(corpus, vocab_size=10000)
 
-    # Construct vocabulary
+    # Constructing vocabulary
     tokenizer.construct_vocabulary()
-
-    # # Test tokenization
-    # sentence = "This is the Hugging Face course!"
-    # tokens = tokenizer.tokenize(sentence)
-    # print(tokens)
-
-    # # Save tokenized output to a JSON file
-    # tokenized_output = {"1": tokens}
-    # with open("tokenized_output.json", "w") as json_file:
-    #     json.dump(tokenized_output, json_file, indent=4)
 
     with open("sample_test.json", "r") as test_file:
         test_samples = json.load(test_file)
 
-    # Tokenize sentences and save results
+    # Tokenizing sentences and save results
     tokenized_results = []
     for sample in test_samples:
         tokenized_sentence = tokenizer.tokenize(sample["sentence"])
         tokenized_results.append({"id": sample["id"], "tokens": tokenized_sentence})
 
-    # Save tokenized output to JSON
-    with open("sample_tokenized.json", "w") as output_file:
+    # Saving tokenized output to JSON
+    with open("tokenized_50.json", "w") as output_file:
         json.dump(tokenized_results, output_file, indent=4)
 
-    print("Tokenization completed and saved to sample_tokenized.json!")
+    print("Tokenization completed and saved to tokenized_50.json!")
