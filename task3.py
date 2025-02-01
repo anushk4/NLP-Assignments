@@ -185,8 +185,7 @@ class NeuralLM3(nn.Module):
                 self.embedding.weight.requires_grad = False
         
         self.fc1 = nn.Linear(embedding_dim, hidden_dim)
-        self.fc2 = nn.Linear(hidden_dim, 64)
-        self.fc3 = nn.Linear(64, vocab_size)
+        self.fc2 = nn.Linear(hidden_dim, vocab_size)
         self.dropout = nn.Dropout(dropout)
         self.context_size = context_size
 
@@ -195,8 +194,7 @@ class NeuralLM3(nn.Module):
         cbow_vec = embedded.mean(dim=1)
         h = F.relu(self.fc1(cbow_vec))
         h = self.dropout(h)
-        h = F.relu(self.fc2(h))
-        out = torch.sigmoid(self.fc3(h))  # example final activation
+        out = self.fc2(h)
         return out
 
 
@@ -339,22 +337,19 @@ if __name__ == "__main__":
     EPOCHS = 10
     BATCH_SIZE = 32
     LEARNING_RATE = 1e-3
-    EMBEDDING_DIM = 50
+    EMBEDDING_DIM = 100
     HIDDEN_DIM = 128
     CONTEXT_SIZE = 2
     DEVICE = "cpu"  # or "cuda"
 
     print("HIIIII")
 
-    # 1) Load Corpus
     with open("corpus.txt", "r", encoding="utf-8") as f:
         lines = f.readlines()
     corpus = [line.strip() for line in lines if line.strip()]
     
-    # 2) Load Pretrained WordPiece Vocab
-    tokenizer = PreTrainedWordPieceTokenizer("vocabulary_100000.txt")
+    tokenizer = PreTrainedWordPieceTokenizer("vocabulary_50.txt")
 
-    # 3) Load word2idx & idx2word from JSON
     with open("word_to_idx.json", "r", encoding="utf-8") as f:
         word_to_idx = json.load(f)
 
