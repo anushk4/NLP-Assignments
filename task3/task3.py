@@ -14,6 +14,10 @@ sys.path.append(parent_dir)
 from task1.task1 import WordPieceTokenizer
 from task2.task2 import Word2VecModel
 
+'''
+References:
+1. https://medium.com/@fahadp2000/cracking-the-code-machine-learning-for-next-word-predictions-8dfe9387cc27
+'''
 
 def load_pretrained_word2vec(checkpoint_path, vocab_size, embedding_dim):
     """Instantiate Word2VecModel and load saved weights from Task 2."""
