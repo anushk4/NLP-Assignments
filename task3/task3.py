@@ -14,9 +14,7 @@ sys.path.append(parent_dir)
 from task1.task1 import WordPieceTokenizer
 from task2.task2 import Word2VecModel
 
-###############################################################################
-# Load a pretrained Word2VecModel
-###############################################################################
+
 def load_pretrained_word2vec(checkpoint_path, vocab_size, embedding_dim):
     """Instantiate Word2VecModel and load saved weights from Task 2."""
     model = Word2VecModel(vocab_size, embedding_dim)
@@ -24,9 +22,6 @@ def load_pretrained_word2vec(checkpoint_path, vocab_size, embedding_dim):
     return model
 
 
-###############################################################################
-# NeuralLMDataset
-###############################################################################
 class NeuralLMDataset(Dataset):
     """
     Next-word prediction dataset using:
@@ -73,9 +68,6 @@ class NeuralLMDataset(Dataset):
         return context_tensor, target_tensor
 
 
-###############################################################################
-# Neural LM Architectures
-###############################################################################
 class NeuralLM1(nn.Module):
     def __init__(self, vocab_size, embedding_dim, context_size,
                  pretrained_embeddings=None, freeze_emb=True):
@@ -100,6 +92,7 @@ class NeuralLM1(nn.Module):
 class NeuralLM2(nn.Module):
     def __init__(self, vocab_size, embedding_dim, context_size,
                  hidden_dim=128, pretrained_embeddings=None, freeze_emb=False):
+        
         super().__init__()
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         if pretrained_embeddings is not None:
@@ -121,32 +114,44 @@ class NeuralLM2(nn.Module):
 
 class NeuralLM3(nn.Module):
     def __init__(self, vocab_size, embedding_dim, context_size,
-                 hidden_dim=128, pretrained_embeddings=None,
-                 freeze_emb=False, dropout=0.3):
-        super().__init__()
+                 hidden_dim=256, dropout=0.5,
+                 pretrained_embeddings=None, freeze_emb=False):
+        
+        super(NeuralLM3, self).__init__()
+        self.context_size = context_size
+        
+        # Embedding layer: converts token indices into dense vectors.
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         if pretrained_embeddings is not None:
             self.embedding.weight.data.copy_(pretrained_embeddings)
             if freeze_emb:
                 self.embedding.weight.requires_grad = False
-        
-        self.fc1 = nn.Linear(embedding_dim, hidden_dim)
-        self.fc2 = nn.Linear(hidden_dim, vocab_size)
+
+        # Instead of averaging, we will concatenate the embeddings.
+        # Therefore, the input dimension becomes: context_size * embedding_dim.
+        self.fc1 = nn.Linear(context_size * embedding_dim, hidden_dim)
+        self.bn1 = nn.BatchNorm1d(hidden_dim)
         self.dropout = nn.Dropout(dropout)
-        self.context_size = context_size
+        self.fc2 = nn.Linear(hidden_dim, vocab_size)
+        
+        
 
     def forward(self, x):
+        # [batch_size, context_size, embedding_dim]
         embedded = self.embedding(x)
-        cbow_vec = embedded.mean(dim=1)
-        h = F.relu(self.fc1(cbow_vec))
-        h = self.dropout(h)
-        out = self.fc2(h)
+        
+        # Concatenate embeddings along the context dimension:
+        flat = embedded.view(embedded.size(0), -1)  # [batch_size, context_size * embedding_dim]
+        
+        h = self.fc1(flat)                         # [batch_size, hidden_dim]
+        h = F.relu(h)
+        h = self.bn1(h)                            
+        h = self.dropout(h)                        
+        
+        out = self.fc2(h)                          # [batch_size, vocab_size]
         return out
 
 
-###############################################################################
-# Training & Utility
-###############################################################################
 def train_model(model, train_loader, valid_loader, model_id, num_epochs=5, lr=1e-3, device='cpu'):
     model.to(device)
     optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr)
@@ -276,9 +281,6 @@ def generate_next_tokens(model, tokenizer, token2idx, idx2token,
     return generated_tokens
 
 
-###############################################################################
-# Main Script (No argparse)
-###############################################################################
 if __name__ == "__main__":
     EPOCHS = 10
     BATCH_SIZE = 32
