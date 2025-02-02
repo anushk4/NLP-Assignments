@@ -165,8 +165,8 @@ def get_triplet_combinations(model, dataset, words):
 
 def find_similar_words(model, dataset):
     word_pairs = [
-        ("unfit", "buff", "yoga"),
-        ("enjoying", "laugh", "scoffing")
+        ("kingdom", "folks", "attacking"),
+        ("subject", "study", "preschool")
     ]
     for word_pair in word_pairs:
         top_similarities = get_triplet_combinations(model, dataset, word_pair)
@@ -177,7 +177,7 @@ def find_similar_words(model, dataset):
 
 # def load_model(model, filepath):
 #     model.load_state_dict(torch.load(filepath))
-#     model.eval()  # Set the model to evaluation mode
+#     model.eval()
 #     return model
 
 if __name__ == "__main__":
@@ -191,7 +191,12 @@ if __name__ == "__main__":
     with open("../corpus.txt", "r") as file:
         corpus = file.readlines()
     tokenizer = WordPieceTokenizer(corpus, vocab_size=VOCAB_SIZE)
-    tokenizer.construct_vocabulary()
+    if os.path.exists("vocabulary_50.txt"):
+        with open("vocabulary_50.txt", "r") as file:
+            tokenizer.vocab = file.readlines()
+        tokenizer.vocab = [word.strip('\n') for word in tokenizer.vocab]
+    else:
+        tokenizer.construct_vocabulary()
     dataset = Word2VecDataset(corpus, tokenizer=tokenizer, context_window=2)
     with open("word_to_idx.json", "w", encoding="utf-8") as f:
         json.dump(dataset.word_to_idx, f, ensure_ascii=False, indent=2)
@@ -200,5 +205,6 @@ if __name__ == "__main__":
         json.dump(idx_to_word_str, f, ensure_ascii=False, indent=2)
     model, train_loss, val_loss = train(dataset, embedding_dim=EMBEDDING_DIM, epochs=EPOCHS, batch_size=BATCH_SIZE, lr=LR, val_split=VAL_SPLIT, num_negative_samples=NUM_NEGATIVE_SAMPLES)
     plot_loss(train_loss, val_loss)
-    model = Word2VecModel(dataset.vocab_size, 100)
+    # model = Word2VecModel(dataset.vocab_size, 100)
+    # model = load_model(model, "word2vec_cbow.pth")
     find_similar_words(model, dataset)

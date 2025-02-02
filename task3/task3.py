@@ -293,7 +293,12 @@ if __name__ == "__main__":
         corpus = file.readlines()
     
     tokenizer = WordPieceTokenizer(corpus, vocab_size=VOCAB_SIZE)
-    tokenizer.construct_vocabulary()
+    if os.path.exists("vocabulary_50.txt"):
+        with open("vocabulary_50.txt", "r") as file:
+            tokenizer.vocab = file.readlines()
+        tokenizer.vocab = [word.strip('\n') for word in tokenizer.vocab]
+    else:
+        tokenizer.construct_vocabulary()
 
     with open("../task2/word_to_idx.json", "r", encoding="utf-8") as f:
         word_to_idx = json.load(f)
