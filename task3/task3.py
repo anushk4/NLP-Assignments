@@ -26,16 +26,16 @@ class NeuralLMDataset(Dataset):
     """
     Next-word prediction dataset using:
       - PreTrainedWordPieceTokenizer for subword tokenization
-      - The dictionaries from Task 2 (word2idx.json, idx2word.json)
+      - The dictionaries from Task 2 (word_to_idx.json, idx_to_word.json)
     """
     def __init__(self, corpus, tokenizer, word2idx, idx2word, context_size=2):
         """
         Args:
             corpus (list[str]): Raw text data
-            tokenizer (PreTrainedWordPieceTokenizer): WordPiece subword tokenizer
+            tokenizer : WordPieceTokenizer from task 1
             word2idx (dict): token -> int
             idx2word (dict): int -> token
-            context_size (int): How many tokens of context
+            context_size (int): How many tokens of context for prediction
         """
         self.tokenizer = tokenizer
         self.word2idx = word2idx
@@ -62,6 +62,7 @@ class NeuralLMDataset(Dataset):
         return len(self.samples)
 
     def __getitem__(self, idx):
+        """Fetch the (context, target) pair at the given index in the dataset."""
         context, target = self.samples[idx]
         context_tensor = torch.tensor(context, dtype=torch.long)
         target_tensor = torch.tensor(target, dtype=torch.long)
@@ -69,6 +70,12 @@ class NeuralLMDataset(Dataset):
 
 
 class NeuralLM1(nn.Module):
+    
+    """A simple CBOW language model with:
+      - An embedding layer
+      - Mean pooling over context embeddings
+      - A single linear layer to output vocab scores
+    """
     def __init__(self, vocab_size, embedding_dim, context_size,
                  pretrained_embeddings=None, freeze_emb=True):
         super().__init__()
@@ -90,6 +97,14 @@ class NeuralLM1(nn.Module):
 
 
 class NeuralLM2(nn.Module):
+    
+    """
+    A slightly deeper language model with:
+      - Embedding layer
+      - Mean pooling
+      - Single hidden layer (tanh activation)
+      - Output linear layer
+    """
     def __init__(self, vocab_size, embedding_dim, context_size,
                  hidden_dim=128, pretrained_embeddings=None, freeze_emb=False):
         
@@ -105,6 +120,13 @@ class NeuralLM2(nn.Module):
         self.context_size = context_size
 
     def forward(self, x):
+        """
+        Forward pass:
+          1) Embedding lookup
+          2) Mean pooling for context
+          3) Hidden layer with tanh
+          4) Output layer
+        """
         embedded = self.embedding(x)
         cbow_vec = embedded.mean(dim=1)
         h = torch.tanh(self.fc1(cbow_vec))
@@ -113,6 +135,12 @@ class NeuralLM2(nn.Module):
 
 
 class NeuralLM3(nn.Module):
+    
+    """
+    A model that concatenates context embeddings instead of averaging them.
+    Then passes through a hidden layer with batch normalization and dropout,
+    followed by a final output layer.
+    """
     def __init__(self, vocab_size, embedding_dim, context_size,
                  hidden_dim=256, dropout=0.5,
                  pretrained_embeddings=None, freeze_emb=False):
@@ -120,7 +148,6 @@ class NeuralLM3(nn.Module):
         super(NeuralLM3, self).__init__()
         self.context_size = context_size
         
-        # Embedding layer: converts token indices into dense vectors.
         self.embedding = nn.Embedding(vocab_size, embedding_dim)
         if pretrained_embeddings is not None:
             self.embedding.weight.data.copy_(pretrained_embeddings)
@@ -137,6 +164,13 @@ class NeuralLM3(nn.Module):
         
 
     def forward(self, x):
+        """
+        Forward pass:
+          1) Embedding lookup
+          2) Concatenate context embeddings
+          3) Hidden layer (ReLU) + batch norm + dropout
+          4) Output layer
+        """
         # [batch_size, context_size, embedding_dim]
         embedded = self.embedding(x)
         
@@ -153,8 +187,29 @@ class NeuralLM3(nn.Module):
 
 
 def train_model(model, train_loader, valid_loader, model_id, num_epochs=5, lr=1e-3, device='cpu'):
+    
+    """
+    Train the specified language model, computing losses, accuracy, and perplexity
+    on both the training and validation sets.
+
+    Args:
+        model (nn.Module): The language model to train.
+        train_loader (DataLoader): DataLoader for training samples.
+        valid_loader (DataLoader): DataLoader for validation samples.
+        model_id (int): ID to save model checkpoints (e.g., "NeuralLM1.pth")
+        num_epochs (int): Number of training epochs.
+        lr (float): Learning rate for the optimizer.
+        device (str): 'cpu' or 'cuda' for GPU training.
+
+    Returns:
+        (train_loss_history, valid_loss_history,
+         train_acc_history, valid_acc_history,
+         train_ppl_history, valid_ppl_history)
+    """
+    
     model.to(device)
-    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr)
+        # Used Adam with weight decay for L2 regularization
+    optimizer = torch.optim.Adam(filter(lambda p: p.requires_grad, model.parameters()), lr=lr, weight_decay=1e-5)
     criterion = nn.CrossEntropyLoss()
 
     train_loss_history = []
@@ -239,13 +294,25 @@ def train_model(model, train_loader, valid_loader, model_id, num_epochs=5, lr=1e
     )
 
 def compute_perplexity(loss):
+    """Perplexity = exp(loss)"""
     return np.exp(loss)
 
 def generate_next_tokens(model, tokenizer, token2idx, idx2token,
                          initial_text, num_tokens=3, device='cpu'):
     """
-    Predict next `num_tokens` tokens from initial_text, 
-    returning a list of predicted token strings.
+    Predict the next `num_tokens` tokens from an initial text using the trained model.
+    
+    Args:
+        model (nn.Module): The trained language model.
+        tokenizer (WordPieceTokenizer): Tokenizer to handle text.
+        token2idx (dict): token -> int mapping.
+        idx2token (dict): int -> token mapping.
+        initial_text (str): The starting sentence/phrase.
+        num_tokens (int): How many tokens to predict.
+        device (str): 'cpu' or 'cuda'.
+
+    Returns:
+        generated_tokens (list[str]): A list of the predicted next tokens.
     """
     model.eval()
 
@@ -262,7 +329,7 @@ def generate_next_tokens(model, tokenizer, token2idx, idx2token,
         if len(indices) < context_size:
             break
         
-        # Build the context
+        # Building the context
         context_indices = indices[-context_size:]
         context_tensor = torch.tensor(context_indices, dtype=torch.long).unsqueeze(0).to(device)
         
@@ -275,7 +342,7 @@ def generate_next_tokens(model, tokenizer, token2idx, idx2token,
         predicted_token = idx2token[next_token_id]  
         generated_tokens.append(predicted_token)
 
-        # Add this predicted token's index to the context
+        # Add this predicted token's index to the context for next prediction
         indices.append(next_token_id)
 
     return generated_tokens
