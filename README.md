@@ -64,3 +64,8 @@ Delete the `vocabulary_50.txt` file if you wish to change the `vocab_size` as th
 - `task3_loss_plot.png:` Train vs validation vs epoch graph for all the three models obtained after training.
 - `task3.py:` Source code for task3.
 - `vocabulary_50.txt:` This servers as cache for vocabulary with vocabulary size 10000. This has to be deleted if the vocab_size if changed to reconstruct the vocabulary accordingly.
+
+### Root directory
+- `corpus.txt:` Corpus
+- `README.md:` Readme file
+- `run_tasks.bat:` Script to run all three files. Works only for Windows-based systems.
