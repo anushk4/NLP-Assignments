@@ -1341,7 +1341,7 @@
         "aspect_term": [
             "interior deco"
         ],
-        "index": 6
+        "index": -1
     },
     {
         "tokens": [
@@ -1525,7 +1525,7 @@
         "aspect_term": [
             "sushi bar"
         ],
-        "index": 24
+        "index": 30
     },
     {
         "tokens": [
@@ -1936,7 +1936,7 @@
         "aspect_term": [
             "Thai food"
         ],
-        "index": 4
+        "index": 16
     },
     {
         "tokens": [
@@ -5064,7 +5064,7 @@
         "aspect_term": [
             "glass of prosecco"
         ],
-        "index": 1
+        "index": 6
     },
     {
         "tokens": [
@@ -12585,7 +12585,7 @@
         "aspect_term": [
             "tuna sandwich"
         ],
-        "index": 3
+        "index": 15
     },
     {
         "tokens": [
@@ -16255,7 +16255,7 @@
         "aspect_term": [
             "wine list"
         ],
-        "index": 5
+        "index": 15
     },
     {
         "tokens": [
@@ -17732,7 +17732,7 @@
         "aspect_term": [
             "tempura dis"
         ],
-        "index": 10
+        "index": -1
     },
     {
         "tokens": [
@@ -20561,7 +20561,7 @@
         "aspect_term": [
             "desserts with frog jelly"
         ],
-        "index": 7
+        "index": 22
     },
     {
         "tokens": [
@@ -21079,7 +21079,7 @@
         "aspect_term": [
             "fresh mozz cheese"
         ],
-        "index": 3
+        "index": 6
     },
     {
         "tokens": [
@@ -29614,7 +29614,7 @@
         "aspect_term": [
             "price rang"
         ],
-        "index": 17
+        "index": -1
     },
     {
         "tokens": [
@@ -32379,7 +32379,7 @@
         "aspect_term": [
             "outdoor seatin"
         ],
-        "index": 14
+        "index": -1
     },
     {
         "tokens": [
@@ -34287,7 +34287,7 @@
         "aspect_term": [
             "wait staff"
         ],
-        "index": 16
+        "index": 20
     },
     {
         "tokens": [
@@ -40327,7 +40327,7 @@
         "aspect_term": [
             "thai food"
         ],
-        "index": 2
+        "index": 19
     },
     {
         "tokens": [
@@ -40492,7 +40492,7 @@
         "aspect_term": [
             "fish fillet in spicy source"
         ],
-        "index": 4
+        "index": 9
     },
     {
         "tokens": [
@@ -41227,7 +41227,7 @@
         "aspect_term": [
             "sushi places"
         ],
-        "index": 4
+        "index": 26
     },
     {
         "tokens": [
@@ -43063,7 +43063,7 @@
         "aspect_term": [
             "main cours"
         ],
-        "index": 11
+        "index": -1
     },
     {
         "tokens": [
@@ -49077,7 +49077,7 @@
         "aspect_term": [
             "take ou"
         ],
-        "index": 9
+        "index": -1
     },
     {
         "tokens": [
@@ -49573,7 +49573,7 @@
         "aspect_term": [
             "Sichuan food"
         ],
-        "index": 24
+        "index": 36
     },
     {
         "tokens": [
@@ -52321,7 +52321,7 @@
         "aspect_term": [
             "Japanese cuisin"
         ],
-        "index": 16
+        "index": -1
     },
     {
         "tokens": [
@@ -56589,7 +56589,7 @@
         "aspect_term": [
             "New York Bagel"
         ],
-        "index": 4
+        "index": 12
     },
     {
         "tokens": [
@@ -61187,7 +61187,7 @@
         "aspect_term": [
             "dim sum atmosphere"
         ],
-        "index": 6
+        "index": 21
     },
     {
         "tokens": [
@@ -65170,7 +65170,7 @@
         "aspect_term": [
             "Italian chees"
         ],
-        "index": 14
+        "index": -1
     },
     {
         "tokens": [
@@ -70637,7 +70637,7 @@
         "aspect_term": [
             "lunch specia"
         ],
-        "index": 7
+        "index": -1
     },
     {
         "tokens": [
@@ -73729,7 +73729,7 @@
         "aspect_term": [
             "chicken with portobello mushrooms"
         ],
-        "index": 1
+        "index": 15
     },
     {
         "tokens": [
@@ -77738,7 +77738,7 @@
         "aspect_term": [
             "2-person table"
         ],
-        "index": 20
+        "index": 36
     },
     {
         "tokens": [

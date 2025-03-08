@@ -9,6 +9,13 @@ def preprocess_tokens(text):
     tokens = text.split()
     return tokens
 
+def find_aspect_index(tokenized_sentence, aspect_term):
+    aspect_tokens = preprocess_tokens(aspect_term)
+    for i in range(len(tokenized_sentence) - len(aspect_tokens) + 1):
+        if tokenized_sentence[i : i + len(aspect_tokens)] == aspect_tokens:
+            return i 
+    return -1 
+
 def preprocess_data(data):
     preprocessed_data = []
     for d in data:
@@ -18,7 +25,7 @@ def preprocess_data(data):
             new_data["tokens"] = tokens
             new_data["polarity"] = term["polarity"]
             new_data["aspect_term"] = [term["term"]]
-            new_data["index"] = tokens.index(preprocess_tokens(term["term"])[0])
+            new_data["index"] = find_aspect_index(tokens, term["term"])
             preprocessed_data.append(new_data)
     return preprocessed_data
 
