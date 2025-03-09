@@ -153,8 +153,7 @@
             "my",
             "mom",
             "for",
-            "Mother",
-            "s",
+            "Mothers",
             "Day",
             "and",
             "the",
@@ -168,7 +167,7 @@
         "aspect_term": [
             "maitre d'"
         ],
-        "index": 9
+        "index": 8
     },
     {
         "tokens": [
@@ -541,8 +540,7 @@
             "in",
             "quantity",
             "for",
-            "3",
-            "00",
+            "$3.00",
             "in",
             "NYC"
         ],
@@ -573,8 +571,7 @@
             "in",
             "quantity",
             "for",
-            "3",
-            "00",
+            "$3.00",
             "in",
             "NYC"
         ],
@@ -950,8 +947,7 @@
             "is",
             "diverse",
             "and",
-            "top",
-            "notch",
+            "top-notch",
             "as",
             "well"
         ],
@@ -981,8 +977,7 @@
     {
         "tokens": [
             "I",
-            "don",
-            "t",
+            "dont",
             "like",
             "Indian",
             "food",
@@ -1006,7 +1001,7 @@
         "aspect_term": [
             "Indian food"
         ],
-        "index": 4
+        "index": 3
     },
     {
         "tokens": [
@@ -1014,8 +1009,7 @@
             "taj",
             "vegetarians",
             "can",
-            "rejoice",
-            "all",
+            "rejoice-all",
             "the",
             "dishes",
             "are",
@@ -1027,7 +1021,7 @@
         "aspect_term": [
             "dishes"
         ],
-        "index": 7
+        "index": 6
     },
     {
         "tokens": [
@@ -1041,8 +1035,7 @@
             "the",
             "noise",
             "which",
-            "isn",
-            "t",
+            "isnt",
             "actually",
             "that",
             "bad",
@@ -1058,7 +1051,7 @@
             "be",
             "coddled",
             "and",
-            "romantic"
+            "romantic?"
         ],
         "polarity": "conflict",
         "aspect_term": [
@@ -1078,8 +1071,7 @@
             "the",
             "noise",
             "which",
-            "isn",
-            "t",
+            "isnt",
             "actually",
             "that",
             "bad",
@@ -1095,7 +1087,7 @@
             "be",
             "coddled",
             "and",
-            "romantic"
+            "romantic?"
         ],
         "polarity": "conflict",
         "aspect_term": [
@@ -1115,8 +1107,7 @@
             "the",
             "noise",
             "which",
-            "isn",
-            "t",
+            "isnt",
             "actually",
             "that",
             "bad",
@@ -1132,7 +1123,7 @@
             "be",
             "coddled",
             "and",
-            "romantic"
+            "romantic?"
         ],
         "polarity": "conflict",
         "aspect_term": [
@@ -1143,8 +1134,7 @@
     {
         "tokens": [
             "I",
-            "won",
-            "t",
+            "wont",
             "go",
             "back",
             "unless",
@@ -1159,7 +1149,7 @@
         "aspect_term": [
             "bill"
         ],
-        "index": 11
+        "index": 10
     },
     {
         "tokens": [
@@ -1196,8 +1186,7 @@
             "in",
             "the",
             "order",
-            "they",
-            "d",
+            "theyd",
             "bring",
             "it",
             "out",
@@ -1206,8 +1195,7 @@
             "car",
             "so",
             "I",
-            "wouldn",
-            "t",
+            "wouldnt",
             "have",
             "to",
             "look",
@@ -1222,8 +1210,7 @@
     },
     {
         "tokens": [
-            "Jimmy",
-            "s",
+            "Jimmys",
             "is",
             "hands",
             "down",
@@ -1239,7 +1226,7 @@
         "aspect_term": [
             "spot"
         ],
-        "index": 8
+        "index": 7
     },
     {
         "tokens": [
@@ -1298,7 +1285,7 @@
     {
         "tokens": [
             "The",
-            "300",
+            "$300",
             "bill",
             "was",
             "a",
@@ -1656,15 +1643,13 @@
     {
         "tokens": [
             "We",
-            "didn",
-            "t",
+            "didnt",
             "get",
             "drink",
             "refills",
             "and",
             "she",
-            "didn",
-            "t",
+            "didnt",
             "even",
             "offer",
             "us",
@@ -1677,20 +1662,18 @@
         "aspect_term": [
             "drink refills"
         ],
-        "index": 4
+        "index": 3
     },
     {
         "tokens": [
             "We",
-            "didn",
-            "t",
+            "didnt",
             "get",
             "drink",
             "refills",
             "and",
             "she",
-            "didn",
-            "t",
+            "didnt",
             "even",
             "offer",
             "us",
@@ -1703,7 +1686,7 @@
         "aspect_term": [
             "dessert"
         ],
-        "index": 16
+        "index": 14
     },
     {
         "tokens": [
@@ -1746,8 +1729,7 @@
             "can",
             "handle",
             "that",
-            "it",
-            "s",
+            "its",
             "a",
             "great",
             "place",
@@ -1769,7 +1751,7 @@
         "aspect_term": [
             "business dinner"
         ],
-        "index": 12
+        "index": 11
     },
     {
         "tokens": [
@@ -1778,8 +1760,7 @@
             "can",
             "handle",
             "that",
-            "it",
-            "s",
+            "its",
             "a",
             "great",
             "place",
@@ -1801,7 +1782,7 @@
         "aspect_term": [
             "table"
         ],
-        "index": 20
+        "index": 19
     },
     {
         "tokens": [
@@ -1833,8 +1814,7 @@
             "bland",
             "if",
             "you",
-            "don",
-            "t"
+            "dont"
         ],
         "polarity": "neutral",
         "aspect_term": [
@@ -1854,10 +1834,7 @@
             "nice",
             "in",
             "that",
-            "not",
-            "trying",
-            "too",
-            "hard",
+            "not-trying-too-hard",
             "way",
             "but",
             "at",
@@ -1891,10 +1868,7 @@
             "nice",
             "in",
             "that",
-            "not",
-            "trying",
-            "too",
-            "hard",
+            "not-trying-too-hard",
             "way",
             "but",
             "at",
@@ -1928,10 +1902,7 @@
             "nice",
             "in",
             "that",
-            "not",
-            "trying",
-            "too",
-            "hard",
+            "not-trying-too-hard",
             "way",
             "but",
             "at",
@@ -1951,7 +1922,7 @@
         "aspect_term": [
             "prices"
         ],
-        "index": 18
+        "index": 15
     },
     {
         "tokens": [
@@ -1965,10 +1936,7 @@
             "nice",
             "in",
             "that",
-            "not",
-            "trying",
-            "too",
-            "hard",
+            "not-trying-too-hard",
             "way",
             "but",
             "at",
@@ -1988,7 +1956,7 @@
         "aspect_term": [
             "food"
         ],
-        "index": 27
+        "index": 24
     },
     {
         "tokens": [
@@ -1999,8 +1967,7 @@
             "place",
             "is",
             "like",
-            "Emma",
-            "s",
+            "Emmas",
             "Pizza",
             "in",
             "Kendall",
@@ -2018,7 +1985,7 @@
         "aspect_term": [
             "toppings"
         ],
-        "index": 20
+        "index": 19
     },
     {
         "tokens": [
@@ -2030,8 +1997,7 @@
             "there",
             "we",
             "spend",
-            "60",
-            "00",
+            "$60.00",
             "have",
             "LOBSTER",
             "TAILS",
@@ -2041,24 +2007,21 @@
             "say",
             "more",
             "I",
-            "can",
-            "t",
+            "cant",
             "say",
             "any",
             "more",
             "it",
             "a",
             "place",
-            "you",
-            "ll",
+            "youll",
             "never",
             "forget",
             "If",
             "you",
             "never",
             "go",
-            "you",
-            "ll",
+            "youll",
             "miss",
             "A",
             "Meal",
@@ -2071,7 +2034,7 @@
         "aspect_term": [
             "place"
         ],
-        "index": 26
+        "index": 24
     },
     {
         "tokens": [
@@ -2083,8 +2046,7 @@
             "there",
             "we",
             "spend",
-            "60",
-            "00",
+            "$60.00",
             "have",
             "LOBSTER",
             "TAILS",
@@ -2094,24 +2056,21 @@
             "say",
             "more",
             "I",
-            "can",
-            "t",
+            "cant",
             "say",
             "any",
             "more",
             "it",
             "a",
             "place",
-            "you",
-            "ll",
+            "youll",
             "never",
             "forget",
             "If",
             "you",
             "never",
             "go",
-            "you",
-            "ll",
+            "youll",
             "miss",
             "A",
             "Meal",
@@ -2124,7 +2083,7 @@
         "aspect_term": [
             "Meal"
         ],
-        "index": 39
+        "index": 35
     },
     {
         "tokens": [
@@ -2136,8 +2095,7 @@
             "there",
             "we",
             "spend",
-            "60",
-            "00",
+            "$60.00",
             "have",
             "LOBSTER",
             "TAILS",
@@ -2147,24 +2105,21 @@
             "say",
             "more",
             "I",
-            "can",
-            "t",
+            "cant",
             "say",
             "any",
             "more",
             "it",
             "a",
             "place",
-            "you",
-            "ll",
+            "youll",
             "never",
             "forget",
             "If",
             "you",
             "never",
             "go",
-            "you",
-            "ll",
+            "youll",
             "miss",
             "A",
             "Meal",
@@ -2177,7 +2132,7 @@
         "aspect_term": [
             "LOBSTER TAILS"
         ],
-        "index": 11
+        "index": 10
     },
     {
         "tokens": [
@@ -2239,8 +2194,7 @@
     },
     {
         "tokens": [
-            "I",
-            "ve",
+            "Ive",
             "been",
             "to",
             "this",
@@ -2252,8 +2206,7 @@
             "times",
             "and",
             "when",
-            "I",
-            "m",
+            "Im",
             "craving",
             "for",
             "Pho",
@@ -2276,12 +2229,11 @@
         "aspect_term": [
             "Pho"
         ],
-        "index": 17
+        "index": 15
     },
     {
         "tokens": [
-            "I",
-            "ve",
+            "Ive",
             "been",
             "to",
             "this",
@@ -2293,8 +2245,7 @@
             "times",
             "and",
             "when",
-            "I",
-            "m",
+            "Im",
             "craving",
             "for",
             "Pho",
@@ -2317,12 +2268,11 @@
         "aspect_term": [
             "Lemon grass chicken"
         ],
-        "index": 18
+        "index": 16
     },
     {
         "tokens": [
-            "I",
-            "ve",
+            "Ive",
             "been",
             "to",
             "this",
@@ -2334,8 +2284,7 @@
             "times",
             "and",
             "when",
-            "I",
-            "m",
+            "Im",
             "craving",
             "for",
             "Pho",
@@ -2358,7 +2307,7 @@
         "aspect_term": [
             "Beef Cube on rice"
         ],
-        "index": 22
+        "index": 20
     },
     {
         "tokens": [
@@ -2431,8 +2380,7 @@
             "the",
             "desserts",
             "WOW",
-            "you",
-            "ll",
+            "youll",
             "need",
             "no",
             "more"
@@ -2463,8 +2411,7 @@
             "the",
             "desserts",
             "WOW",
-            "you",
-            "ll",
+            "youll",
             "need",
             "no",
             "more"
@@ -2495,8 +2442,7 @@
             "the",
             "desserts",
             "WOW",
-            "you",
-            "ll",
+            "youll",
             "need",
             "no",
             "more"
@@ -2527,8 +2473,7 @@
             "the",
             "desserts",
             "WOW",
-            "you",
-            "ll",
+            "youll",
             "need",
             "no",
             "more"
@@ -2597,8 +2542,7 @@
             "famous",
             "and",
             "historic",
-            "Katz",
-            "s",
+            "Katzs",
             "Deli",
             "down",
             "on",
@@ -2740,8 +2684,7 @@
     },
     {
         "tokens": [
-            "Joe",
-            "s",
+            "Joes",
             "Pizza",
             "used",
             "to",
@@ -2759,7 +2702,7 @@
         "aspect_term": [
             "slice"
         ],
-        "index": 8
+        "index": 7
     },
     {
         "tokens": [
@@ -2944,8 +2887,7 @@
             "the",
             "Pad",
             "Thai",
-            "it",
-            "s",
+            "its",
             "fabulous",
             "and",
             "their",
@@ -2966,8 +2908,7 @@
             "the",
             "Pad",
             "Thai",
-            "it",
-            "s",
+            "its",
             "fabulous",
             "and",
             "their",
@@ -2980,7 +2921,7 @@
         "aspect_term": [
             "prices"
         ],
-        "index": 9
+        "index": 8
     },
     {
         "tokens": [
@@ -3012,8 +2953,7 @@
     {
         "tokens": [
             "Dessert",
-            "can",
-            "t",
+            "cant",
             "be",
             "missed",
             "so",
@@ -3307,11 +3247,9 @@
             "and",
             "wine",
             "were",
-            "excellent",
-            "the",
+            "excellent-the",
             "service",
-            "too",
-            "but",
+            "too--but",
             "what",
             "really",
             "MADE",
@@ -3336,11 +3274,9 @@
             "and",
             "wine",
             "were",
-            "excellent",
-            "the",
+            "excellent-the",
             "service",
-            "too",
-            "but",
+            "too--but",
             "what",
             "really",
             "MADE",
@@ -3365,11 +3301,9 @@
             "and",
             "wine",
             "were",
-            "excellent",
-            "the",
+            "excellent-the",
             "service",
-            "too",
-            "but",
+            "too--but",
             "what",
             "really",
             "MADE",
@@ -3385,7 +3319,7 @@
         "aspect_term": [
             "service"
         ],
-        "index": 7
+        "index": 6
     },
     {
         "tokens": [
@@ -3394,11 +3328,9 @@
             "and",
             "wine",
             "were",
-            "excellent",
-            "the",
+            "excellent-the",
             "service",
-            "too",
-            "but",
+            "too--but",
             "what",
             "really",
             "MADE",
@@ -3414,7 +3346,7 @@
         "aspect_term": [
             "backyard dining area"
         ],
-        "index": 17
+        "index": 15
     },
     {
         "tokens": [
@@ -3584,8 +3516,7 @@
             "but",
             "standing",
             "up",
-            "wasn",
-            "t",
+            "wasnt",
             "too",
             "bad"
         ],
@@ -3832,8 +3763,7 @@
             "reservation",
             "but",
             "it",
-            "wasn",
-            "t",
+            "wasnt",
             "a",
             "problem",
             "to",
@@ -3860,8 +3790,7 @@
             "reservation",
             "but",
             "it",
-            "wasn",
-            "t",
+            "wasnt",
             "a",
             "problem",
             "to",
@@ -3874,7 +3803,7 @@
         "aspect_term": [
             "table"
         ],
-        "index": 17
+        "index": 16
     },
     {
         "tokens": [
@@ -3887,8 +3816,7 @@
             "reservation",
             "and",
             "seated",
-            "promptly",
-            "The"
+            "promptly.The"
         ],
         "polarity": "positive",
         "aspect_term": [
@@ -3962,7 +3890,7 @@
             "can",
             "say",
             "is",
-            "2",
+            "$2",
             "pints",
             "during",
             "happy",
@@ -3974,8 +3902,7 @@
             "the",
             "cheapest",
             "oysters",
-            "you",
-            "ll",
+            "youll",
             "find",
             "in",
             "the",
@@ -4002,7 +3929,7 @@
             "can",
             "say",
             "is",
-            "2",
+            "$2",
             "pints",
             "during",
             "happy",
@@ -4014,8 +3941,7 @@
             "the",
             "cheapest",
             "oysters",
-            "you",
-            "ll",
+            "youll",
             "find",
             "in",
             "the",
@@ -4033,7 +3959,7 @@
         "aspect_term": [
             "quality"
         ],
-        "index": 25
+        "index": 24
     },
     {
         "tokens": [
@@ -4495,8 +4421,7 @@
             "chicken",
             "and",
             "i",
-            "can",
-            "t",
+            "cant",
             "go",
             "on",
             "to",
@@ -4527,8 +4452,7 @@
             "chicken",
             "and",
             "i",
-            "can",
-            "t",
+            "cant",
             "go",
             "on",
             "to",
@@ -4548,7 +4472,7 @@
         "aspect_term": [
             "presentation"
         ],
-        "index": 20
+        "index": 19
     },
     {
         "tokens": [
@@ -4674,8 +4598,7 @@
             "lamb",
             "meat",
             "was",
-            "under",
-            "cooked",
+            "under-cooked",
             "and",
             "EXTRMELY",
             "CHEWY"
@@ -4692,8 +4615,7 @@
             "best",
             "pad",
             "thai",
-            "i",
-            "ve",
+            "ive",
             "ever",
             "had"
         ],
@@ -5016,8 +4938,7 @@
             "The",
             "wine",
             "list",
-            "isn",
-            "t",
+            "isnt",
             "great",
             "and",
             "the",
@@ -5026,8 +4947,7 @@
             "shipped",
             "in",
             "from",
-            "Bruno",
-            "s",
+            "Brunos",
             "down",
             "the",
             "street",
@@ -5053,8 +4973,7 @@
             "The",
             "wine",
             "list",
-            "isn",
-            "t",
+            "isnt",
             "great",
             "and",
             "the",
@@ -5063,8 +4982,7 @@
             "shipped",
             "in",
             "from",
-            "Bruno",
-            "s",
+            "Brunos",
             "down",
             "the",
             "street",
@@ -5083,7 +5001,7 @@
         "aspect_term": [
             "desserts"
         ],
-        "index": 8
+        "index": 7
     },
     {
         "tokens": [
@@ -5190,8 +5108,7 @@
             "space",
             "is",
             "large",
-            "they",
-            "ve",
+            "theyve",
             "overcrowded",
             "the",
             "floor",
@@ -5214,8 +5131,7 @@
             "space",
             "is",
             "large",
-            "they",
-            "ve",
+            "theyve",
             "overcrowded",
             "the",
             "floor",
@@ -5226,7 +5142,7 @@
         "aspect_term": [
             "tables"
         ],
-        "index": 14
+        "index": 13
     },
     {
         "tokens": [
@@ -5405,8 +5321,7 @@
             "come",
             "as",
             "a",
-            "triple",
-            "decker",
+            "triple-decker",
             "here",
             "you",
             "can",
@@ -5416,8 +5331,7 @@
             "want",
             "in",
             "a",
-            "reasonably",
-            "sized",
+            "reasonably-sized",
             "portion",
             "and",
             "price"
@@ -5444,8 +5358,7 @@
             "come",
             "as",
             "a",
-            "triple",
-            "decker",
+            "triple-decker",
             "here",
             "you",
             "can",
@@ -5455,8 +5368,7 @@
             "want",
             "in",
             "a",
-            "reasonably",
-            "sized",
+            "reasonably-sized",
             "portion",
             "and",
             "price"
@@ -5465,7 +5377,7 @@
         "aspect_term": [
             "price"
         ],
-        "index": 29
+        "index": 27
     },
     {
         "tokens": [
@@ -5483,8 +5395,7 @@
             "come",
             "as",
             "a",
-            "triple",
-            "decker",
+            "triple-decker",
             "here",
             "you",
             "can",
@@ -5494,8 +5405,7 @@
             "want",
             "in",
             "a",
-            "reasonably",
-            "sized",
+            "reasonably-sized",
             "portion",
             "and",
             "price"
@@ -5504,7 +5414,7 @@
         "aspect_term": [
             "portion"
         ],
-        "index": 27
+        "index": 25
     },
     {
         "tokens": [
@@ -5547,8 +5457,7 @@
     {
         "tokens": [
             "They",
-            "couldn",
-            "t",
+            "couldnt",
             "even",
             "make",
             "a",
@@ -5561,7 +5470,7 @@
         "aspect_term": [
             "salad"
         ],
-        "index": 6
+        "index": 5
     },
     {
         "tokens": [
@@ -5573,7 +5482,7 @@
             "was",
             "less",
             "than",
-            "25",
+            "$25",
             "bucks"
         ],
         "polarity": "neutral",
@@ -5728,8 +5637,7 @@
     },
     {
         "tokens": [
-            "I",
-            "ve",
+            "Ive",
             "eaten",
             "thai",
             "many",
@@ -5746,7 +5654,7 @@
         "aspect_term": [
             "cuisine"
         ],
-        "index": 12
+        "index": 11
     },
     {
         "tokens": [
@@ -5767,12 +5675,10 @@
             "Margarita",
             "is",
             "best",
-            "I",
-            "ve",
+            "Ive",
             "had",
             "since",
-            "I",
-            "ve",
+            "Ive",
             "returned",
             "from",
             "Naples"
@@ -5815,8 +5721,7 @@
             "Purple",
             "Haze",
             "which",
-            "wasn",
-            "t",
+            "wasnt",
             "listed",
             "but",
             "made",
@@ -5846,8 +5751,7 @@
             "Purple",
             "Haze",
             "which",
-            "wasn",
-            "t",
+            "wasnt",
             "listed",
             "but",
             "made",
@@ -6141,8 +6045,7 @@
             "We",
             "went",
             "around",
-            "9",
-            "30",
+            "9:30",
             "on",
             "a",
             "Friday",
@@ -6165,7 +6068,7 @@
         "aspect_term": [
             "service"
         ],
-        "index": 19
+        "index": 18
     },
     {
         "tokens": [
@@ -6458,8 +6361,7 @@
             "orders",
             "had",
             "about",
-            "6",
-            "8",
+            "6-8",
             "pieces"
         ],
         "polarity": "neutral",
@@ -6550,8 +6452,7 @@
             "is",
             "consistently",
             "wonderful",
-            "I",
-            "ve",
+            "Ive",
             "been",
             "coming",
             "here",
@@ -6580,8 +6481,7 @@
             "is",
             "consistently",
             "wonderful",
-            "I",
-            "ve",
+            "Ive",
             "been",
             "coming",
             "here",
@@ -6601,7 +6501,7 @@
         "aspect_term": [
             "owner"
         ],
-        "index": 14
+        "index": 13
     },
     {
         "tokens": [
@@ -6620,8 +6520,7 @@
             "the",
             "exterminator",
             "but",
-            "weren",
-            "t",
+            "werent",
             "as",
             "dismayed",
             "or",
@@ -6655,8 +6554,7 @@
             "the",
             "exterminator",
             "but",
-            "weren",
-            "t",
+            "werent",
             "as",
             "dismayed",
             "or",
@@ -6690,8 +6588,7 @@
     {
         "tokens": [
             "If",
-            "you",
-            "re",
+            "youre",
             "looking",
             "for",
             "a",
@@ -6708,15 +6605,12 @@
             "friends",
             "go",
             "to",
-            "sweet",
-            "n",
-            "tart",
+            "sweet-n-tart",
             "and",
             "order",
             "yourself",
             "a",
-            "hong",
-            "kong",
+            "hong-kong",
             "styled",
             "milk",
             "and",
@@ -6730,13 +6624,12 @@
         "aspect_term": [
             "drink"
         ],
-        "index": 12
+        "index": 11
     },
     {
         "tokens": [
             "If",
-            "you",
-            "re",
+            "youre",
             "looking",
             "for",
             "a",
@@ -6753,15 +6646,12 @@
             "friends",
             "go",
             "to",
-            "sweet",
-            "n",
-            "tart",
+            "sweet-n-tart",
             "and",
             "order",
             "yourself",
             "a",
-            "hong",
-            "kong",
+            "hong-kong",
             "styled",
             "milk",
             "and",
@@ -6775,13 +6665,12 @@
         "aspect_term": [
             "hong-kong styled milk"
         ],
-        "index": 26
+        "index": 23
     },
     {
         "tokens": [
             "If",
-            "you",
-            "re",
+            "youre",
             "looking",
             "for",
             "a",
@@ -6798,15 +6687,12 @@
             "friends",
             "go",
             "to",
-            "sweet",
-            "n",
-            "tart",
+            "sweet-n-tart",
             "and",
             "order",
             "yourself",
             "a",
-            "hong",
-            "kong",
+            "hong-kong",
             "styled",
             "milk",
             "and",
@@ -6820,7 +6706,7 @@
         "aspect_term": [
             "tea with tapioca pearls (hot)"
         ],
-        "index": 31
+        "index": 27
     },
     {
         "tokens": [
@@ -7069,8 +6955,7 @@
     },
     {
         "tokens": [
-            "They",
-            "re",
+            "Theyre",
             "also",
             "friendlier",
             "here",
@@ -7083,7 +6968,7 @@
         "aspect_term": [
             "owner"
         ],
-        "index": 7
+        "index": 6
     },
     {
         "tokens": [
@@ -7095,17 +6980,14 @@
             "particularly",
             "comfortable",
             "once",
-            "you",
-            "re",
+            "youre",
             "seated",
-            "you",
-            "ll",
+            "youll",
             "forget",
             "about",
             "everything",
             "except",
-            "what",
-            "s",
+            "whats",
             "on",
             "your",
             "plate"
@@ -7126,17 +7008,14 @@
             "particularly",
             "comfortable",
             "once",
-            "you",
-            "re",
+            "youre",
             "seated",
-            "you",
-            "ll",
+            "youll",
             "forget",
             "about",
             "everything",
             "except",
-            "what",
-            "s",
+            "whats",
             "on",
             "your",
             "plate"
@@ -7145,12 +7024,11 @@
         "aspect_term": [
             "plate"
         ],
-        "index": 21
+        "index": 18
     },
     {
         "tokens": [
-            "I",
-            "ve",
+            "Ive",
             "lived",
             "in",
             "NYC",
@@ -7179,7 +7057,7 @@
         "aspect_term": [
             "waterbugs"
         ],
-        "index": 15
+        "index": 14
     },
     {
         "tokens": [
@@ -7560,8 +7438,7 @@
             "catcher",
             "2",
             "for",
-            "1",
-            "s"
+            "1s"
         ],
         "polarity": "positive",
         "aspect_term": [
@@ -7586,8 +7463,7 @@
             "catcher",
             "2",
             "for",
-            "1",
-            "s"
+            "1s"
         ],
         "polarity": "positive",
         "aspect_term": [
@@ -7599,12 +7475,11 @@
         "tokens": [
             "If",
             "it",
-            "isn",
-            "t",
+            "isnt",
             "for",
             "the",
             "food",
-            "A",
+            "A+++",
             "it",
             "must",
             "be",
@@ -7618,18 +7493,17 @@
         "aspect_term": [
             "food"
         ],
-        "index": 6
+        "index": 5
     },
     {
         "tokens": [
             "If",
             "it",
-            "isn",
-            "t",
+            "isnt",
             "for",
             "the",
             "food",
-            "A",
+            "A+++",
             "it",
             "must",
             "be",
@@ -7643,18 +7517,17 @@
         "aspect_term": [
             "service"
         ],
-        "index": 12
+        "index": 11
     },
     {
         "tokens": [
             "If",
             "it",
-            "isn",
-            "t",
+            "isnt",
             "for",
             "the",
             "food",
-            "A",
+            "A+++",
             "it",
             "must",
             "be",
@@ -7668,7 +7541,7 @@
         "aspect_term": [
             "ambience"
         ],
-        "index": 15
+        "index": 14
     },
     {
         "tokens": [
@@ -7734,8 +7607,7 @@
             "like",
             "the",
             "ambience",
-            "it",
-            "s",
+            "its",
             "very",
             "dark",
             "and",
@@ -8555,8 +8427,7 @@
             "here",
             "is",
             "only",
-            "so",
-            "so"
+            "so-so"
         ],
         "polarity": "neutral",
         "aspect_term": [
@@ -8566,7 +8437,7 @@
     },
     {
         "tokens": [
-            "6",
+            "$6",
             "and",
             "there",
             "is",
@@ -8610,8 +8481,7 @@
             "even",
             "though",
             "sometimes",
-            "there",
-            "s",
+            "theres",
             "alot",
             "of",
             "people"
@@ -8636,8 +8506,7 @@
             "you",
             "can",
             "call",
-            "70",
-            "00",
+            "$70.00",
             "inexpensive",
             "the",
             "cost",
@@ -8655,7 +8524,7 @@
         "aspect_term": [
             "cost"
         ],
-        "index": 16
+        "index": 15
     },
     {
         "tokens": [
@@ -8671,8 +8540,7 @@
             "you",
             "can",
             "call",
-            "70",
-            "00",
+            "$70.00",
             "inexpensive",
             "the",
             "cost",
@@ -9099,12 +8967,10 @@
         "tokens": [
             "As",
             "a",
-            "long",
-            "time",
+            "long-time",
             "patron",
             "of",
-            "Mamoun",
-            "s",
+            "Mamouns",
             "I",
             "always",
             "figured",
@@ -9126,7 +8992,7 @@
         "aspect_term": [
             "food spot"
         ],
-        "index": 19
+        "index": 17
     },
     {
         "tokens": [
@@ -9563,13 +9429,11 @@
     },
     {
         "tokens": [
-            "I",
-            "ve",
+            "Ive",
             "dined",
             "at",
             "Alain",
-            "Ducasse",
-            "s",
+            "Ducasses",
             "restaurant",
             "in",
             "Monte",
@@ -9589,17 +9453,15 @@
         "aspect_term": [
             "dining"
         ],
-        "index": 19
+        "index": 17
     },
     {
         "tokens": [
-            "I",
-            "ve",
+            "Ive",
             "dined",
             "at",
             "Alain",
-            "Ducasse",
-            "s",
+            "Ducasses",
             "restaurant",
             "in",
             "Monte",
@@ -9619,7 +9481,7 @@
         "aspect_term": [
             "price"
         ],
-        "index": 14
+        "index": 12
     },
     {
         "tokens": [
@@ -9656,15 +9518,13 @@
             "your",
             "money",
             "and",
-            "don",
-            "t",
+            "dont",
             "waste",
             "your",
             "calories",
             "go",
             "to",
-            "Margharita",
-            "s",
+            "Margharitas",
             "on",
             "Washington",
             "Street",
@@ -9682,7 +9542,7 @@
         "aspect_term": [
             "food"
         ],
-        "index": 20
+        "index": 18
     },
     {
         "tokens": [
@@ -9690,15 +9550,13 @@
             "your",
             "money",
             "and",
-            "don",
-            "t",
+            "dont",
             "waste",
             "your",
             "calories",
             "go",
             "to",
-            "Margharita",
-            "s",
+            "Margharitas",
             "on",
             "Washington",
             "Street",
@@ -9716,7 +9574,7 @@
         "aspect_term": [
             "service"
         ],
-        "index": 24
+        "index": 22
     },
     {
         "tokens": [
