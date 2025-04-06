@@ -1,0 +1,30 @@
+Reference Text: the author is pissed at <user> for not getting network in malad.
+Predicted Text: <user>'s network in malad isn't awesome.
+
+Reference Text: nothing worst than waiting for an hour on the tarmac for a gate to come open in snowy, windy chicago.
+Predicted Text: the author hates waiting for an hour on the tarmac for a gate to come open in snowy, windy Chicago.
+
+Reference Text: nobody likes getting one hour of their life sucked away.
+Predicted Text: the author hates spring.
+
+Reference Text: having a salivary gland biopsy on monday morning is not a good way to start the new week.
+Predicted Text: having a salivary gland biopsy on monday morning isn't a good way to start the new week.
+
+Reference Text: the author is pissed that <user> keeps delaying the trains and charging everyone for each ride.
+Predicted Text: the author is pissed at <user> for delaying the trains and charging everyone for each ride.
+
+Reference Text: not quality movies on hbo now.
+Predicted Text: the quality of movies on hbo isn't good.
+
+Reference Text: bayley's worried about the stamp collection rather than the dead lizard, it isn't smart.
+Predicted Text: the author is pissed at bayley for such a stupid text message.
+
+Reference Text: the author is pissed at <user> that they said it was high priority, and ensured it'll be delivered and yet they didn't, such an awful delivery service.
+Predicted Text: the author is pissed at <user> for such a bad delivery service.
+
+Reference Text: jonny is fit and hasn't let himself go since retiring from rugby.
+Predicted Text: jonny hasn't let himself go since retiring from rugby then.
+
+Reference Text: awful service from <user>, delivering it today which was supposed to be delivered yesterday and sending this message <num> hours after delivery.
+Predicted Text: the author got a terrible service from <user> - delivered today ( supposed to be yesterday ) then sent this <num> hours after delivery.
+
